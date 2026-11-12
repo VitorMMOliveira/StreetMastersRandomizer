@@ -404,7 +404,12 @@
                         key: "bloodMoon",
                         label: "Lament of the Blood Moon",
                         default: true
-                    }
+                    },
+                    {
+                        key: "redemption3",
+                        label: "Redemption Pack 3 (TODO)",
+                        default: true
+                    },
                 ],
                 fighters: {
                     core: [{
@@ -676,7 +681,24 @@
                             weight: "intermediate"
                         }
                     ],
-                    bloodMoon: []
+                    bloodMoon: [{
+                            name: "Castle",
+                            source: "Lament of the Blood Moon",
+                            weight: "?"
+                        }, {
+                            name: "Caitlyn",
+                            source: "Lament of the Blood Moon",
+                            weight: "starter"
+                        }, {
+                            name: "Butler",
+                            source: "Lament of the Blood Moon",
+                            weight: "starter"
+                        }, {
+                            name: "Anja",
+                            source: "Lament of the Blood Moon",
+                            weight: "starter"
+                        }
+                    ]
                 },
 
                 enemies: {
@@ -776,8 +798,28 @@
                         source: "Tide of the Dragon"
                     }],
                     bloodMoon: [{
-                        faction: "Blood Moon",
+                        faction: "The Empire",
                         boss: "Blood Moon",
+                        source: "Lament of the Blood Moon"
+                    }, {
+                        faction: "The Empire",
+                        boss: "Swiftclaw",
+                        source: "Lament of the Blood Moon"
+                    }{
+                        faction: "The Atonement",
+                        boss: "Anja",
+                        source: "Lament of the Blood Moon"
+                    }, {
+                        faction: "New Brotherhood",
+                        boss: "Castle",
+                        source: "Lament of the Blood Moon"
+                    }, {
+                        faction: "The Nomads",
+                        boss: "Butler",
+                        source: "Lament of the Blood Moon"
+                    }, {
+                        faction: "Silver Phoenix",
+                        boss: "Caitlyn",
                         source: "Lament of the Blood Moon"
                     }]
                 },
