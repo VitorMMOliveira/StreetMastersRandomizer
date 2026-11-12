@@ -1,367 +1,1194 @@
 <html lang="en">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Street Masters – Full Setup Randomiser</title>
-<style>
-  :root {
-    --bg: #0f1115; --panel: #171a21; --accent: #e63946; --ink: #eaeef2; --muted:#9aa3ad; --ok:#2a9d8f; --warn:#e9c46a;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-    --sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", system-ui, -apple-system;
-  }
-  html,body{height:100%;}
-  body{margin:0;background:linear-gradient(180deg,#0b0d12,#10141b 40%,#0b0d12);color:var(--ink);font-family:var(--sans);} 
-  header{padding:20px 16px 0;max-width:1100px;margin-inline:auto;}
-  h1{font-weight:800;letter-spacing:.2px;margin:6px 0 8px;}
-  .sub{color:var(--muted);margin-top:0}
-  main{max-width:1100px;margin:10px auto 96px;padding:16px;}
-  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
-  .card{background:var(--panel);border:1px solid #232836;border-radius:12px;padding:16px;box-shadow:0 6px 22px #0008}
-  .card h3{margin:0 0 8px}
-  fieldset{border:none;margin:0;padding:0}
-  label{display:flex;gap:8px;align-items:center;margin:8px 0;color:var(--ink)}
-  input[type=number]{width:80px;padding:8px;border-radius:8px;border:1px solid #2a2f3a;background:#0c0f14;color:var(--ink)}
-  .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#0e1218;border:1px solid #2a2f3a;color:var(--muted);font-size:12px;margin:3px 6px 3px 0}
-  .btn{cursor:pointer;user-select:none;padding:12px 16px;border-radius:10px;border:1px solid #2a2f3a;background:linear-gradient(180deg,#2b2f39,#1a1f28);color:var(--ink);font-weight:700}
-  .btn:hover{filter:brightness(1.07)}
-  .btn.primary{background:linear-gradient(180deg,#f04857,#bf2f3e);border-color:#7b1c25}
-  .btn.ghost{background:#0e1218}
-  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .result{font-family:var(--mono);white-space:pre-wrap;background:#0b0e13;border:1px dashed #2e3340;border-radius:10px;padding:12px;margin-top:10px}
-  .muted{color:var(--muted)} .ok{color:var(--ok)} .warn{color:var(--warn)} .accent{color:var(--accent)} .small{font-size:12px}
-  .lock{margin-left:auto;display:flex;gap:8px}
-  .hr{height:1px;background:#222733;margin:12px 0}
-  .tag{display:inline-flex;gap:6px;align-items:center;border:1px solid #2a2f3a;border-radius:999px;padding:4px 9px;font-size:12px;background:#111521}
-  .tag input{accent-color:#e63946}
-  .kbd{font-family:var(--mono);background:#0e1218;border:1px solid #2a2f3a;border-bottom-color:#1b2130;border-radius:6px;padding:1px 6px}
-  .notice{font-size:12px;color:var(--muted)}
-  .badge{font-size:11px;border:1px solid #2a2f3a;border-radius:6px;padding:2px 6px;color:var(--muted)}
-  .fatal{border:1px solid #7b1c25;background:#2a0d12;color:#ffd9dd;padding:12px;border-radius:10px;white-space:pre-wrap}
-</style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Street Masters – Full Setup Randomiser</title>
+    <style>
+        :root {
+            --bg: #0f1115;
+            --panel: #171a21;
+            --accent: #e63946;
+            --ink: #eaeef2;
+            --muted: #9aa3ad;
+            --ok: #2a9d8f;
+            --warn: #e9c46a;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+            --sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", system-ui, -apple-system;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #0b0d12, #10141b 40%, #0b0d12);
+            color: var(--ink);
+            font-family: var(--sans);
+        }
+
+        header {
+            padding: 20px 16px 0;
+            max-width: 1100px;
+            margin-inline: auto;
+        }
+
+        h1 {
+            font-weight: 800;
+            letter-spacing: .2px;
+            margin: 6px 0 8px;
+        }
+
+        .sub {
+            color: var(--muted);
+            margin-top: 0
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 10px auto 96px;
+            padding: 16px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid #232836;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 6px 22px #0008
+        }
+
+        .card h3 {
+            margin: 0 0 8px
+        }
+
+        fieldset {
+            border: none;
+            margin: 0;
+            padding: 0
+        }
+
+        label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 8px 0;
+            color: var(--ink)
+        }
+
+        input[type=number] {
+            width: 80px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #2a2f3a;
+            background: #0c0f14;
+            color: var(--ink)
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #0e1218;
+            border: 1px solid #2a2f3a;
+            color: var(--muted);
+            font-size: 12px;
+            margin: 3px 6px 3px 0
+        }
+
+        .btn {
+            cursor: pointer;
+            user-select: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #2a2f3a;
+            background: linear-gradient(180deg, #2b2f39, #1a1f28);
+            color: var(--ink);
+            font-weight: 700
+        }
+
+        .btn:hover {
+            filter: brightness(1.07)
+        }
+
+        .btn.primary {
+            background: linear-gradient(180deg, #f04857, #bf2f3e);
+            border-color: #7b1c25
+        }
+
+        .btn.ghost {
+            background: #0e1218
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center
+        }
+
+        .result {
+            font-family: var(--mono);
+            white-space: pre-wrap;
+            background: #0b0e13;
+            border: 1px dashed #2e3340;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 10px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .ok {
+            color: var(--ok)
+        }
+
+        .warn {
+            color: var(--warn)
+        }
+
+        .accent {
+            color: var(--accent)
+        }
+
+        .small {
+            font-size: 12px
+        }
+
+        .lock {
+            margin-left: auto;
+            display: flex;
+            gap: 8px
+        }
+
+        .hr {
+            height: 1px;
+            background: #222733;
+            margin: 12px 0
+        }
+
+        .tag {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            border: 1px solid #2a2f3a;
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 12px;
+            background: #111521
+        }
+
+        .tag input {
+            accent-color: #e63946
+        }
+
+        .kbd {
+            font-family: var(--mono);
+            background: #0e1218;
+            border: 1px solid #2a2f3a;
+            border-bottom-color: #1b2130;
+            border-radius: 6px;
+            padding: 1px 6px
+        }
+
+        .notice {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .badge {
+            font-size: 11px;
+            border: 1px solid #2a2f3a;
+            border-radius: 6px;
+            padding: 2px 6px;
+            color: var(--muted)
+        }
+
+        .fatal {
+            border: 1px solid #7b1c25;
+            background: #2a0d12;
+            color: #ffd9dd;
+            padding: 12px;
+            border-radius: 10px;
+            white-space: pre-wrap
+        }
+    </style>
 </head>
+
 <body>
-<header>
-  <h1>Street Masters – Full Setup Randomiser</h1>
-  <p class="sub">Randomises Fighters (per player), Enemy faction, Stage, and optional Missions/Showdowns (Aftershock). Saves filters; seedable results.</p>
-</header>
+    <header>
+        <h1>Street Masters – Full Setup Randomiser</h1>
+        <p class="sub">Randomises Fighters (per player), Enemy faction, Stage, and optional Missions/Showdowns (Aftershock). Saves filters; seedable results.</p>
+    </header>
 
-<main>
-  <div id="fatal" class="fatal" style="display:none"></div>
-  <div class="grid" id="app" style="display:none">
-    <section class="card">
-      <h3>Setup Options</h3>
-      <fieldset>
-        <label><span>Players:</span> <input id="players" type="number" min="1" max="4" value="2"></label>
-        <div class="hr"></div>
-        <div class="row small muted">Include content from:</div>
-        <div class="row" id="boxToggles"></div>
-        <div class="hr"></div>
-        <label class="tag"><input type="checkbox" id="noRepeat" checked> Avoid repeating last setup</label>
-        <label class="tag"><input type="checkbox" id="respectWeights" checked> Bias toward beginner decks</label>
-        <span id="storageBadge" class="badge" title="Local storage unavailable" style="display:none">Storage disabled</span>
-      </fieldset>
-      <div class="hr"></div>
-      <div class="row">
-        <button id="roll" class="btn primary">🎲 Randomise Full Setup</button>
-        <button id="copy" class="btn ghost">📋 Copy</button>
-        <button id="reset" class="btn ghost">♻️ Reset filters</button>
-        <span class="badge">Seed: <span id="seedLabel" class="kbd">auto</span></span>
-        <button id="rerollSeed" class="btn ghost small">🔁 New seed</button>
-      </div>
-      <p class="notice">Pro tip: click the <span class="kbd">🔒</span> locks to “hold” Fighters/Enemy/Stage while re-rolling the rest.</p>
-    </section>
+    <main>
+        <div id="fatal" class="fatal" style="display:none"></div>
+        <div class="grid" id="app" style="display:none">
+            <section class="card">
+                <h3>Setup Options</h3>
+                <fieldset>
+                    <label><span>Players:</span> <input id="players" type="number" min="1" max="4" value="2"></label>
+                    <div class="hr"></div>
+                    <div class="row small muted">Include content from:</div>
+                    <div class="row" id="boxToggles"></div>
+                    <div class="hr"></div>
+                    <label class="tag"><input type="checkbox" id="noRepeat" checked> Avoid repeating last setup</label>
+                    <label class="tag"><input type="checkbox" id="respectWeights" checked> Bias toward beginner decks</label>
+                    <span id="storageBadge" class="badge" title="Local storage unavailable" style="display:none">Storage disabled</span>
+                </fieldset>
+                <div class="hr"></div>
+                <div class="row">
+                    <button id="roll" class="btn primary">🎲 Randomise Full Setup</button>
+                    <button id="copy" class="btn ghost">📋 Copy</button>
+                    <button id="reset" class="btn ghost">♻️ Reset filters</button>
+                    <span class="badge">Seed: <span id="seedLabel" class="kbd">auto</span></span>
+                    <button id="rerollSeed" class="btn ghost small">🔁 New seed</button>
+                </div>
+                <p class="notice">Pro tip: click the <span class="kbd">🔒</span> locks to “hold” Fighters/Enemy/Stage while re-rolling the rest.</p>
+            </section>
 
-    <section class="card">
-      <h3>Results</h3>
-      <div class="row lock small">
-        <label class="tag"><input type="checkbox" id="lockFighters"> 🔒 Fighters</label>
-        <label class="tag"><input type="checkbox" id="lockEnemy"> 🔒 Enemy</label>
-        <label class="tag"><input type="checkbox" id="lockStage"> 🔒 Stage</label>
-        <label class="tag"><input type="checkbox" id="lockExtras"> 🔒 Extras</label>
-      </div>
-      <div id="output" class="result">Ready. Hit “Randomise Full Setup”.</div>
-      <div class="small muted" id="footnote"></div>
-    </section>
+            <section class="card">
+                <h3>Results</h3>
+                <div class="row lock small">
+                    <label class="tag"><input type="checkbox" id="lockFighters"> 🔒 Fighters</label>
+                    <label class="tag"><input type="checkbox" id="lockEnemy"> 🔒 Enemy</label>
+                    <label class="tag"><input type="checkbox" id="lockStage"> 🔒 Stage</label>
+                    <label class="tag"><input type="checkbox" id="lockExtras"> 🔒 Extras</label>
+                </div>
+                <div id="output" class="result">Ready. Hit “Randomise Full Setup”.</div>
+                <div class="small muted" id="footnote"></div>
+            </section>
 
-    <section class="card">
-      <h3>Data Packs</h3>
-      <p class="muted small">Core Fighters & Stages are preloaded. All expansions are listed below. Toggle boxes on/off above.</p>
-      <details>
-        <summary class="pill">Show/Hide current dataset</summary>
-        <pre id="dataset" class="result small"></pre>
-      </details>
-      <p class="notice">IP notice: All names/art belong to their owners. Personal, non‑commercial use only.</p>
-    </section>
-  </div>
-</main>
+            <section class="card">
+                <h3>Data Packs</h3>
+                <p class="muted small">Core Fighters & Stages are preloaded. All expansions are listed below. Toggle boxes on/off above.</p>
+                <details>
+                    <summary class="pill">Show/Hide current dataset</summary>
+                    <pre id="dataset" class="result small"></pre>
+                </details>
+                <p class="notice">IP notice: All names/art belong to their owners. Personal, non‑commercial use only.</p>
+            </section>
+        </div>
+    </main>
 
-<script>
-(function(){
-  "use strict";
-  function showFatal(msg, err){
-    const el = document.getElementById('fatal');
-    el.style.display='block';
-    el.textContent = "App failed to load.\n\n" + (msg||"") + (err?("\n\n"+(err.stack||err)): "");
-  }
-  try { window.addEventListener('DOMContentLoaded', init); } catch(e){ showFatal("DOM failed to load.", e); }
+    <script>
+        (function() {
+            "use strict";
 
-  function init(){
-    try{
-      const hasStorage = testStorage();
-      if(!hasStorage){ document.getElementById('storageBadge').style.display='inline-block'; }
-      document.getElementById('app').style.display='grid';
-      bootstrap(hasStorage);
-    }catch(e){ showFatal("Initialisation error.", e); }
-  }
+            function showFatal(msg, err) {
+                const el = document.getElementById('fatal');
+                el.style.display = 'block';
+                el.textContent = "App failed to load.\n\n" + (msg || "") + (err ? ("\n\n" + (err.stack || err)) : "");
+            }
+            try {
+                window.addEventListener('DOMContentLoaded', init);
+            } catch (e) {
+                showFatal("DOM failed to load.", e);
+            }
 
-  function testStorage(){
-    try{
-      const key="sm_test_"+Math.random();
-      window.sessionStorage.setItem(key,"1"); window.sessionStorage.removeItem(key);
-      window.localStorage.setItem(key,"1"); window.localStorage.removeItem(key);
-      return true;
-    }catch(_){ return false; }
-  }
+            function init() {
+                try {
+                    const hasStorage = testStorage();
+                    if (!hasStorage) {
+                        document.getElementById('storageBadge').style.display = 'inline-block';
+                    }
+                    document.getElementById('app').style.display = 'grid';
+                    bootstrap(hasStorage);
+                } catch (e) {
+                    showFatal("Initialisation error.", e);
+                }
+            }
 
-  function mulberry32(a){return function(){let t=(a+=0x6D2B79F5);t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
-  function seededPick(arr, rng){return arr[Math.floor(rng()*arr.length)]}
-  function shuffle(arr, rng){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()* (i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+            function testStorage() {
+                try {
+                    const key = "sm_test_" + Math.random();
+                    window.sessionStorage.setItem(key, "1");
+                    window.sessionStorage.removeItem(key);
+                    window.localStorage.setItem(key, "1");
+                    window.localStorage.removeItem(key);
+                    return true;
+                } catch (_) {
+                    return false;
+                }
+            }
 
-  const DATA = {
-    boxes: [
-      {key:"core",        label:"Core (Rise of the Kingdom)", default:true},
-      {key:"ks1",         label:"KS1 Stretch Goals", default:true},
-      {key:"twinTiger",   label:"Twin Tiger", default:true},
-      {key:"oni",         label:"Legend of Oni", default:true},
-      {key:"aftershock",  label:"Aftershock", default:true},
-      {key:"essence",     label:"Essence of Evil", default:true},
-      {key:"ks2",         label:"KS2 Stretch Goals", default:true},
-      {key:"redemption1", label:"Redemption Pack 1", default:true},
-      {key:"redemption2", label:"Redemption Pack 2", default:true},
-      {key:"newChal",     label:"New Challengers", default:true},
-      {key:"tide",        label:"Tide of the Dragon", default:true},
-      {key:"bloodMoon",   label:"Lament of the Blood Moon (enemy only for now)", default:true}
-    ],
-    fighters: {
-      core: [
-        {name:"Kyoryu", source:"Core", weight:"starter"},
-        {name:"Megan", source:"Core", weight:"starter"},
-        {name:"Brandon", source:"Core", weight:"advanced"},
-        {name:"Gabriel", source:"Core", weight:"intermediate"},
-        {name:"Natalia", source:"Core", weight:"intermediate"},
-        {name:"Ying Hua", source:"Core", weight:"starter"}
-      ],
-      ks1: [
-        {name:"Clint", source:"KS1 Stretch", weight:"intermediate"},
-        {name:"Max", source:"KS1 Stretch", weight:"advanced"},
-        {name:"Tiger", source:"KS1 Stretch", weight:"starter"}
-      ],
-      twinTiger: [
-        {name:"Axel Murdock", source:"Twin Tiger", weight:"starter"},
-        {name:"Rhys Murdock", source:"Twin Tiger", weight:"starter"}
-      ],
-      aftershock: [
-        {name:"Leeta", source:"Aftershock", weight:"starter"},
-        {name:"Vada", source:"Aftershock", weight:"starter"},
-        {name:"Ronny", source:"Aftershock", weight:"intermediate"},
-        {name:"Murphy", source:"Aftershock", weight:"intermediate"}
-      ],
-      essence: [
-        {name:"Hanzo", source:"Essence of Evil", weight:"intermediate"}
-      ],
-      ks2: [
-        {name:"Chan Chan", source:"KS2 Stretch", weight:"starter"},
-        {name:"Jack", source:"KS2 Stretch", weight:"intermediate"},
-        {name:"Wicked", source:"KS2 Stretch", weight:"intermediate"},
-        {name:"Grill", source:"KS2 Stretch", weight:"intermediate"},
-        {name:"Crunk", source:"KS2 Stretch", weight:"intermediate"},
-        {name:"Micky", source:"KS2 Stretch", weight:"intermediate"},
-        {name:"Raven", source:"KS2 Stretch", weight:"advanced"},
-        {name:"Renae", source:"KS2 Stretch", weight:"advanced"},
-        {name:"Wildfire", source:"KS2 Stretch", weight:"advanced"},
-        {name:"Glam", source:"KS2 Stretch", weight:"advanced"}
-      ],
-      redemption1: [
-        {name:"Jackal", source:"Redemption 1", weight:"advanced"},
-        {name:"Shadow", source:"Redemption 1", weight:"advanced"},
-        {name:"Kemono", source:"Redemption 1", weight:"intermediate"},
-        {name:"Juan", source:"Redemption 1", weight:"intermediate"},
-        {name:"Ah Long", source:"Redemption 1", weight:"advanced"},
-        {name:"Dmitri", source:"Redemption 1", weight:"intermediate"}
-      ],
-      redemption2: [
-        {name:"Kenshin", source:"Redemption 2", weight:"intermediate"},
-        {name:"Ikuchi", source:"Redemption 2", weight:"intermediate"},
-        {name:"Yokai", source:"Redemption 2", weight:"advanced"},
-        {name:"The Proxy", source:"Redemption 2", weight:"advanced"},
-        {name:"The Don", source:"Redemption 2", weight:"intermediate"},
-        {name:"Selene", source:"Redemption 2", weight:"intermediate"},
-        {name:"Mack", source:"Redemption 2", weight:"intermediate"},
-        {name:"Miss Matrix", source:"Redemption 2", weight:"advanced"},
-        {name:"Tlazolteotl", source:"Redemption 2", weight:"advanced"},
-        {name:"Project X", source:"Redemption 2", weight:"advanced"}
-      ],
-      newChal: [
-        {name:"Mary Ann", source:"New Challengers", weight:"intermediate"},
-        {name:"Isabella", source:"New Challengers", weight:"starter"},
-        {name:"Darius", source:"New Challengers", weight:"intermediate"},
-        {name:"Zane", source:"New Challengers", weight:"starter"},
-        {name:"Sera O'Quinn", source:"New Challengers", weight:"intermediate"},
-        {name:"Mr. Apple", source:"New Challengers", weight:"advanced"}
-      ],
-      tide: [
-        {name:"Bruce", source:"Tide of the Dragon", weight:"starter"},
-        {name:"Jirou", source:"Tide of the Dragon", weight:"starter"},
-        {name:"Phoenix", source:"Tide of the Dragon", weight:"advanced"},
-        {name:"Viktoria", source:"Tide of the Dragon", weight:"intermediate"}
-      ],
-      bloodMoon: [ ]
-    },
+            function mulberry32(a) {
+                return function() {
+                    let t = (a += 0x6D2B79F5);
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+                }
+            }
 
-    enemies: {
-      core: [
-        {faction:"The Brotherhood", boss:"Dmitri", source:"Core"},
-        {faction:"The Golden Dragons", boss:"Ah Long", source:"Core"},
-        {faction:"The Cartel", boss:"The Don", source:"Core"},
-        {faction:"The Kingdom: Jackal", boss:"Jackal", source:"Core"},
-        {faction:"The Kingdom: Kemono", boss:"Kemono", source:"Core"},
-        {faction:"The Kingdom: Shadow", boss:"Shadow", source:"Core"}
-      ],
-      ks1: [ {faction:"The Nahualli", boss:"Tlazolteotl", source:"KS1 Stretch"} ],
-      twinTiger: [ {faction:"Onyx League", boss:"Mack", source:"Twin Tiger"} ],
-      oni: [ {faction:"The Oni", boss:"Kenshin", source:"Legend of Oni"} ],
-      aftershock: [ {faction:"Parasol, Inc.", boss:"Selene", source:"Aftershock"}, {faction:"The Abandoned", boss:"Project X", source:"Aftershock"} ],
-      essence: [ {faction:"The Ayakashi", boss:"Ikuchi", source:"Essence of Evil"} ],
-      ks2: [
-        {faction:"Davenport Manor", boss:"Jack", source:"KS2 Stretch"},
-        {faction:"Cybertooth Crew", boss:"Miss Matrix", source:"KS2 Stretch"},
-        {faction:"Clan Hattori", boss:"Kenshin", source:"KS2 Stretch"},
-        {faction:"Recyclord", boss:"Recyclord", source:"KS2 Stretch"},
-        {faction:"The Cifarelli Family", boss:"The Don", source:"KS2 Stretch"}
-      ],
-      tide: [ {faction:"The All-Heaven Gang", boss:"?", source:"Tide of the Dragon"}, {faction:"The Fire Cloud Gang", boss:"?", source:"Tide of the Dragon"} ],
-      bloodMoon: [ {faction:"Blood Moon", boss:"Blood Moon", source:"Lament of the Blood Moon"} ]
-    },
+            function seededPick(arr, rng) {
+                return arr[Math.floor(rng() * arr.length)]
+            }
 
-    stages: {
-      core: [
-        {name:"Gone Ballistic", source:"Core", weight:"starter"},
-        {name:"Right to Remain Silent", source:"Core", weight:"starter"},
-        {name:"Compromised", source:"Core", weight:"intermediate"},
-        {name:"Original Copy", source:"Core", weight:"advanced"},
-        {name:"Supply & Demand", source:"Core", weight:"intermediate"},
-        {name:"Cashed Out", source:"Core", weight:"advanced"},
-        {name:"Sudden Death", source:"Core", weight:"starter"},
-        {name:"Steel Memories", source:"Core", weight:"intermediate"}
-      ],
-      ks1: [ {name:"Out of Time", source:"KS1 Stretch"}, {name:"Rude Awakening", source:"KS1 Stretch"} ],
-      twinTiger: [ {name:"Poison The Well", source:"Twin Tiger"}, {name:"Under Destruction", source:"Twin Tiger"} ],
-      oni: [ {name:"Ashes of the Eternal", source:"Legend of Oni"}, {name:"One Step Ahead", source:"Legend of Oni"}, {name:"The Ceremony", source:"Legend of Oni"}, {name:"Running Wild", source:"Legend of Oni"} ],
-      aftershock: [ {name:"Bogged Down", source:"Aftershock"}, {name:"Derailed", source:"Aftershock"}, {name:"Triage", source:"Aftershock"}, {name:"Meltdown", source:"Aftershock"} ],
-      essence: [ {name:"Reign Storm", source:"Essence of Evil"}, {name:"Ring of Fire", source:"Essence of Evil"} ],
-      ks2: [
-        {name:"All The Rave", source:"KS2 Stretch"}, {name:"Estate of Decay", source:"KS2 Stretch"}, {name:"Spring Break", source:"KS2 Stretch"}, {name:"Schooled", source:"KS2 Stretch"},
-        {name:"Pier Pressure", source:"KS2 Stretch"}, {name:"Reel Terror", source:"KS2 Stretch"}, {name:"Pounding Pavement", source:"KS2 Stretch"}, {name:"Mob Rules", source:"KS2 Stretch"}
-      ],
-      tide: [ {name:"Sky High", source:"Tide of the Dragon"}, {name:"Market Crash", source:"Tide of the Dragon"} ],
-      bloodMoon: [ ]
-    },
+            function shuffle(arr, rng) {
+                const a = arr.slice();
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(rng() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]]
+                }
+                return a
+            }
 
-    extras: { missions: [{name:"Mission deck ON", source:"Aftershock"}], showdowns: [{name:"Showdown deck ON", source:"Aftershock"}] },
-    beginner: { fighterNames: new Set(["Kyoryu","Megan","Ying Hua","Axel Murdock","Rhys Murdock","Isabella","Zane","Bruce","Jirou"]), stageNames: new Set(["Gone Ballistic","Right to Remain Silent","Sudden Death"]), enemyFactions: new Set(["The Brotherhood","Parasol, Inc.","The All-Heaven Gang"]) }
-  };
+            const DATA = {
+                boxes: [{
+                        key: "core",
+                        label: "Core (Rise of the Kingdom)",
+                        default: true
+                    },
+                    {
+                        key: "ks1",
+                        label: "KS1 Stretch Goals",
+                        default: true
+                    },
+                    {
+                        key: "twinTiger",
+                        label: "Twin Tiger",
+                        default: true
+                    },
+                    {
+                        key: "oni",
+                        label: "Legend of Oni",
+                        default: true
+                    },
+                    {
+                        key: "aftershock",
+                        label: "Aftershock",
+                        default: true
+                    },
+                    {
+                        key: "essence",
+                        label: "Essence of Evil",
+                        default: true
+                    },
+                    {
+                        key: "ks2",
+                        label: "KS2 Stretch Goals",
+                        default: true
+                    },
+                    {
+                        key: "redemption1",
+                        label: "Redemption Pack 1",
+                        default: true
+                    },
+                    {
+                        key: "redemption2",
+                        label: "Redemption Pack 2",
+                        default: true
+                    },
+                    {
+                        key: "newChal",
+                        label: "New Challengers",
+                        default: true
+                    },
+                    {
+                        key: "tide",
+                        label: "Tide of the Dragon",
+                        default: true
+                    },
+                    {
+                        key: "bloodMoon",
+                        label: "Lament of the Blood Moon (enemy only for now)",
+                        default: true
+                    }
+                ],
+                fighters: {
+                    core: [{
+                            name: "Kyoryu",
+                            source: "Core",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Megan",
+                            source: "Core",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Brandon",
+                            source: "Core",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Gabriel",
+                            source: "Core",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Natalia",
+                            source: "Core",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Ying Hua",
+                            source: "Core",
+                            weight: "starter"
+                        }
+                    ],
+                    ks1: [{
+                            name: "Clint",
+                            source: "KS1 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Max",
+                            source: "KS1 Stretch",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Tiger",
+                            source: "KS1 Stretch",
+                            weight: "starter"
+                        }
+                    ],
+                    twinTiger: [{
+                            name: "Axel Murdock",
+                            source: "Twin Tiger",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Rhys Murdock",
+                            source: "Twin Tiger",
+                            weight: "starter"
+                        }
+                    ],
+                    aftershock: [{
+                            name: "Leeta",
+                            source: "Aftershock",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Vada",
+                            source: "Aftershock",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Ronny",
+                            source: "Aftershock",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Murphy",
+                            source: "Aftershock",
+                            weight: "intermediate"
+                        }
+                    ],
+                    essence: [{
+                        name: "Hanzo",
+                        source: "Essence of Evil",
+                        weight: "intermediate"
+                    }],
+                    ks2: [{
+                            name: "Chan Chan",
+                            source: "KS2 Stretch",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Jack",
+                            source: "KS2 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Wicked",
+                            source: "KS2 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Grill",
+                            source: "KS2 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Crunk",
+                            source: "KS2 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Micky",
+                            source: "KS2 Stretch",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Raven",
+                            source: "KS2 Stretch",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Renae",
+                            source: "KS2 Stretch",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Wildfire",
+                            source: "KS2 Stretch",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Glam",
+                            source: "KS2 Stretch",
+                            weight: "advanced"
+                        }
+                    ],
+                    redemption1: [{
+                            name: "Jackal",
+                            source: "Redemption 1",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Shadow",
+                            source: "Redemption 1",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Kemono",
+                            source: "Redemption 1",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Juan",
+                            source: "Redemption 1",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Ah Long",
+                            source: "Redemption 1",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Dmitri",
+                            source: "Redemption 1",
+                            weight: "intermediate"
+                        }
+                    ],
+                    redemption2: [{
+                            name: "Kenshin",
+                            source: "Redemption 2",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Ikuchi",
+                            source: "Redemption 2",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Yokai",
+                            source: "Redemption 2",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "The Proxy",
+                            source: "Redemption 2",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "The Don",
+                            source: "Redemption 2",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Selene",
+                            source: "Redemption 2",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Mack",
+                            source: "Redemption 2",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Miss Matrix",
+                            source: "Redemption 2",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Tlazolteotl",
+                            source: "Redemption 2",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Project X",
+                            source: "Redemption 2",
+                            weight: "advanced"
+                        }
+                    ],
+                    newChal: [{
+                            name: "Mary Ann",
+                            source: "New Challengers",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Isabella",
+                            source: "New Challengers",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Darius",
+                            source: "New Challengers",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Zane",
+                            source: "New Challengers",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Sera O'Quinn",
+                            source: "New Challengers",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Mr. Apple",
+                            source: "New Challengers",
+                            weight: "advanced"
+                        }
+                    ],
+                    tide: [{
+                            name: "Bruce",
+                            source: "Tide of the Dragon",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Jirou",
+                            source: "Tide of the Dragon",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Phoenix",
+                            source: "Tide of the Dragon",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Viktoria",
+                            source: "Tide of the Dragon",
+                            weight: "intermediate"
+                        }
+                    ],
+                    bloodMoon: []
+                },
 
-  function getBoxKeys(){ return DATA.boxes.map(b=>b.key); }
+                enemies: {
+                    core: [{
+                            faction: "The Brotherhood",
+                            boss: "Dmitri",
+                            source: "Core"
+                        },
+                        {
+                            faction: "The Golden Dragons",
+                            boss: "Ah Long",
+                            source: "Core"
+                        },
+                        {
+                            faction: "The Cartel",
+                            boss: "The Don",
+                            source: "Core"
+                        },
+                        {
+                            faction: "The Kingdom: Jackal",
+                            boss: "Jackal",
+                            source: "Core"
+                        },
+                        {
+                            faction: "The Kingdom: Kemono",
+                            boss: "Kemono",
+                            source: "Core"
+                        },
+                        {
+                            faction: "The Kingdom: Shadow",
+                            boss: "Shadow",
+                            source: "Core"
+                        }
+                    ],
+                    ks1: [{
+                        faction: "The Nahualli",
+                        boss: "Tlazolteotl",
+                        source: "KS1 Stretch"
+                    }],
+                    twinTiger: [{
+                        faction: "Onyx League",
+                        boss: "Mack",
+                        source: "Twin Tiger"
+                    }],
+                    oni: [{
+                        faction: "The Oni",
+                        boss: "Kenshin",
+                        source: "Legend of Oni"
+                    }],
+                    aftershock: [{
+                        faction: "Parasol, Inc.",
+                        boss: "Selene",
+                        source: "Aftershock"
+                    }, {
+                        faction: "The Abandoned",
+                        boss: "Project X",
+                        source: "Aftershock"
+                    }],
+                    essence: [{
+                        faction: "The Ayakashi",
+                        boss: "Ikuchi",
+                        source: "Essence of Evil"
+                    }],
+                    ks2: [{
+                            faction: "Davenport Manor",
+                            boss: "Jack",
+                            source: "KS2 Stretch"
+                        },
+                        {
+                            faction: "Cybertooth Crew",
+                            boss: "Miss Matrix",
+                            source: "KS2 Stretch"
+                        },
+                        {
+                            faction: "Clan Hattori",
+                            boss: "Kenshin",
+                            source: "KS2 Stretch"
+                        },
+                        {
+                            faction: "Recyclord",
+                            boss: "Recyclord",
+                            source: "KS2 Stretch"
+                        },
+                        {
+                            faction: "The Cifarelli Family",
+                            boss: "The Don",
+                            source: "KS2 Stretch"
+                        }
+                    ],
+                    tide: [{
+                        faction: "The All-Heaven Gang",
+                        boss: "?",
+                        source: "Tide of the Dragon"
+                    }, {
+                        faction: "The Fire Cloud Gang",
+                        boss: "?",
+                        source: "Tide of the Dragon"
+                    }],
+                    bloodMoon: [{
+                        faction: "Blood Moon",
+                        boss: "Blood Moon",
+                        source: "Lament of the Blood Moon"
+                    }]
+                },
 
-  function bootstrap(hasStorage){
-    const wrap = document.getElementById('boxToggles'); wrap.innerHTML = "";
-    DATA.boxes.forEach(b=>{ const lab=document.createElement('label'); lab.className='tag'; const cb=document.createElement('input'); cb.type='checkbox'; cb.className='set'; cb.dataset.key=b.key; cb.checked=b.default; lab.appendChild(cb); lab.append(" "+b.label); wrap.appendChild(lab); });
-    loadFilters(hasStorage); renderDataset();
-    document.getElementById('roll').addEventListener('click', roll);
-    document.getElementById('copy').addEventListener('click', copyOutput);
-    document.getElementById('reset').addEventListener('click', ()=>resetFilters(hasStorage));
-    document.getElementById('rerollSeed').addEventListener('click', ()=>{ setNewSeed(hasStorage); lastSetup=null; document.getElementById('seedLabel').textContent = String(currentSeed(hasStorage)); });
-    document.querySelectorAll('.set, #players, #noRepeat, #respectWeights').forEach(el => el.addEventListener('change', ()=>saveFilters(hasStorage)));
-    document.getElementById('seedLabel').textContent = String(currentSeed(hasStorage));
-  }
+                stages: {
+                    core: [{
+                            name: "Gone Ballistic",
+                            source: "Core",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Right to Remain Silent",
+                            source: "Core",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Compromised",
+                            source: "Core",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Original Copy",
+                            source: "Core",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Supply & Demand",
+                            source: "Core",
+                            weight: "intermediate"
+                        },
+                        {
+                            name: "Cashed Out",
+                            source: "Core",
+                            weight: "advanced"
+                        },
+                        {
+                            name: "Sudden Death",
+                            source: "Core",
+                            weight: "starter"
+                        },
+                        {
+                            name: "Steel Memories",
+                            source: "Core",
+                            weight: "intermediate"
+                        }
+                    ],
+                    ks1: [{
+                        name: "Out of Time",
+                        source: "KS1 Stretch"
+                    }, {
+                        name: "Rude Awakening",
+                        source: "KS1 Stretch"
+                    }],
+                    twinTiger: [{
+                        name: "Poison The Well",
+                        source: "Twin Tiger"
+                    }, {
+                        name: "Under Destruction",
+                        source: "Twin Tiger"
+                    }],
+                    oni: [{
+                        name: "Ashes of the Eternal",
+                        source: "Legend of Oni"
+                    }, {
+                        name: "One Step Ahead",
+                        source: "Legend of Oni"
+                    }, {
+                        name: "The Ceremony",
+                        source: "Legend of Oni"
+                    }, {
+                        name: "Running Wild",
+                        source: "Legend of Oni"
+                    }],
+                    aftershock: [{
+                        name: "Bogged Down",
+                        source: "Aftershock"
+                    }, {
+                        name: "Derailed",
+                        source: "Aftershock"
+                    }, {
+                        name: "Triage",
+                        source: "Aftershock"
+                    }, {
+                        name: "Meltdown",
+                        source: "Aftershock"
+                    }],
+                    essence: [{
+                        name: "Reign Storm",
+                        source: "Essence of Evil"
+                    }, {
+                        name: "Ring of Fire",
+                        source: "Essence of Evil"
+                    }],
+                    ks2: [{
+                            name: "All The Rave",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Estate of Decay",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Spring Break",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Schooled",
+                            source: "KS2 Stretch"
+                        },
+                        {
+                            name: "Pier Pressure",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Reel Terror",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Pounding Pavement",
+                            source: "KS2 Stretch"
+                        }, {
+                            name: "Mob Rules",
+                            source: "KS2 Stretch"
+                        }
+                    ],
+                    tide: [{
+                        name: "Sky High",
+                        source: "Tide of the Dragon"
+                    }, {
+                        name: "Market Crash",
+                        source: "Tide of the Dragon"
+                    }],
+                    bloodMoon: []
+                },
 
-  function getEnabledSets(){
-    const boxes=[...document.querySelectorAll('.set')].filter(cb=>cb.checked).map(cb=>cb.dataset.key);
-    const sets={ fighters: boxes.flatMap(k=>DATA.fighters[k]||[]), enemies: boxes.flatMap(k=>DATA.enemies[k]||[]), stages: boxes.flatMap(k=>DATA.stages[k]||[]), extras: [] };
-    if (boxes.includes('aftershock')) { sets.extras = [...DATA.extras.missions, ...DATA.extras.showdowns]; }
-    return sets;
-  }
+                extras: {
+                    missions: [{
+                        name: "Mission deck ON",
+                        source: "Aftershock"
+                    }],
+                    showdowns: [{
+                        name: "Showdown deck ON",
+                        source: "Aftershock"
+                    }]
+                },
+                beginner: {
+                    fighterNames: new Set(["Kyoryu", "Megan", "Ying Hua", "Axel Murdock", "Rhys Murdock", "Isabella", "Zane", "Bruce", "Jirou"]),
+                    stageNames: new Set(["Gone Ballistic", "Right to Remain Silent", "Sudden Death"]),
+                    enemyFactions: new Set(["The Brotherhood", "Parasol, Inc.", "The All-Heaven Gang"])
+                }
+            };
 
-  function drawDistinct(list, count, rng, opts={}){
-    const pool = (opts.weighted && typeof opts.weightFn==='function') ? list.flatMap(item => Array.from({length:Math.max(1, opts.weightFn(item))}, ()=>item)) : list.slice();
-    const out=new Set(); const picks=[]; let safety=0;
-    while(picks.length<count && pool.length && safety<5000){ safety++; const pick = seededPick(pool, rng); const key = JSON.stringify(pick); if(!out.has(key)){ out.add(key); picks.push(pick); } }
-    return picks;
-  }
+            function getBoxKeys() {
+                return DATA.boxes.map(b => b.key);
+            }
 
-  function readConfig(){
-    const players = Math.max(1, Math.min(4, parseInt(document.getElementById('players').value||'2',10)));
-    const noRepeat = document.getElementById('noRepeat').checked;
-    const weighted  = document.getElementById('respectWeights').checked;
-    const locks = { fighters: document.getElementById('lockFighters').checked, enemy: document.getElementById('lockEnemy').checked, stage: document.getElementById('lockStage').checked, extras: document.getElementById('lockExtras').checked };
-    return {players, noRepeat, weighted, locks};
-  }
+            function bootstrap(hasStorage) {
+                const wrap = document.getElementById('boxToggles');
+                wrap.innerHTML = "";
+                DATA.boxes.forEach(b => {
+                    const lab = document.createElement('label');
+                    lab.className = 'tag';
+                    const cb = document.createElement('input');
+                    cb.type = 'checkbox';
+                    cb.className = 'set';
+                    cb.dataset.key = b.key;
+                    cb.checked = b.default;
+                    lab.appendChild(cb);
+                    lab.append(" " + b.label);
+                    wrap.appendChild(lab);
+                });
+                loadFilters(hasStorage);
+                renderDataset();
+                document.getElementById('roll').addEventListener('click', roll);
+                document.getElementById('copy').addEventListener('click', copyOutput);
+                document.getElementById('reset').addEventListener('click', () => resetFilters(hasStorage));
+                document.getElementById('rerollSeed').addEventListener('click', () => {
+                    setNewSeed(hasStorage);
+                    lastSetup = null;
+                    document.getElementById('seedLabel').textContent = String(currentSeed(hasStorage));
+                });
+                document.querySelectorAll('.set, #players, #noRepeat, #respectWeights').forEach(el => el.addEventListener('change', () => saveFilters(hasStorage)));
+                document.getElementById('seedLabel').textContent = String(currentSeed(hasStorage));
+            }
 
-  function saveFilters(hasStorage){ if(!hasStorage) return; const state={ players: document.getElementById('players').value, sets: Object.fromEntries([...document.querySelectorAll('.set')].map(cb=>[cb.dataset.key, cb.checked])), noRepeat: document.getElementById('noRepeat').checked, respectWeights: document.getElementById('respectWeights').checked }; localStorage.setItem('sm_randomiser_prefs', JSON.stringify(state)); }
-  function loadFilters(hasStorage){ if(!hasStorage) return; try{ const raw=localStorage.getItem('sm_randomiser_prefs'); if(!raw) return; const s=JSON.parse(raw); if(s.players) document.getElementById('players').value=s.players; if(s.sets) Object.entries(s.sets).forEach(([k,v])=>{ const el=document.querySelector(`.set[data-key="${k}"]`); if(el) el.checked=!!v; }); if('noRepeat' in s) document.getElementById('noRepeat').checked=!!s.noRepeat; if('respectWeights' in s) document.getElementById('respectWeights').checked=!!s.respectWeights; }catch{} }
+            function getEnabledSets() {
+                const boxes = [...document.querySelectorAll('.set')].filter(cb => cb.checked).map(cb => cb.dataset.key);
+                const sets = {
+                    fighters: boxes.flatMap(k => DATA.fighters[k] || []),
+                    enemies: boxes.flatMap(k => DATA.enemies[k] || []),
+                    stages: boxes.flatMap(k => DATA.stages[k] || []),
+                    extras: []
+                };
+                if (boxes.includes('aftershock')) {
+                    sets.extras = [...DATA.extras.missions, ...DATA.extras.showdowns];
+                }
+                return sets;
+            }
 
-  function currentSeed(hasStorage){ try{ let s = hasStorage? sessionStorage.getItem('sm_seed') : null; if(!s){ s = Math.floor(Math.random()*2**31).toString(); if(hasStorage) sessionStorage.setItem('sm_seed', s); } return parseInt(s,10); }catch(_){ return Math.floor(Math.random()*2**31); } }
-  function setNewSeed(hasStorage){ try{ const s = Math.floor(Math.random()*2**31).toString(); if(hasStorage) sessionStorage.setItem('sm_seed', s); }catch(_){} }
+            function drawDistinct(list, count, rng, opts = {}) {
+                const pool = (opts.weighted && typeof opts.weightFn === 'function') ? list.flatMap(item => Array.from({
+                    length: Math.max(1, opts.weightFn(item))
+                }, () => item)) : list.slice();
+                const out = new Set();
+                const picks = [];
+                let safety = 0;
+                while (picks.length < count && pool.length && safety < 5000) {
+                    safety++;
+                    const pick = seededPick(pool, rng);
+                    const key = JSON.stringify(pick);
+                    if (!out.has(key)) {
+                        out.add(key);
+                        picks.push(pick);
+                    }
+                }
+                return picks;
+            }
 
-  function weightFnFighter(f){ return DATA.beginner.fighterNames.has(f.name) ? 3 : 1; }
-  function weightFnStage(stg){ return DATA.beginner.stageNames.has(stg.name) ? 3 : 1; }
-  function weightFnEnemy(e){ return DATA.beginner.enemyFactions.has(e.faction) ? 2 : 1; }
+            function readConfig() {
+                const players = Math.max(1, Math.min(4, parseInt(document.getElementById('players').value || '2', 10)));
+                const noRepeat = document.getElementById('noRepeat').checked;
+                const weighted = document.getElementById('respectWeights').checked;
+                const locks = {
+                    fighters: document.getElementById('lockFighters').checked,
+                    enemy: document.getElementById('lockEnemy').checked,
+                    stage: document.getElementById('lockStage').checked,
+                    extras: document.getElementById('lockExtras').checked
+                };
+                return {
+                    players,
+                    noRepeat,
+                    weighted,
+                    locks
+                };
+            }
 
-  function renderDataset(){ const payload = { fighters: Object.fromEntries(Object.entries(DATA.fighters).map(([k,v])=>[k,(v||[]).map(x=>x.name)])), enemies: Object.fromEntries(Object.entries(DATA.enemies).map(([k,v])=>[k,(v||[]).map(x=>x.faction)])), stages: Object.fromEntries(Object.entries(DATA.stages ).map(([k,v])=>[k,(v||[]).map(x=>x.name)])) }; document.getElementById('dataset').textContent = JSON.stringify(payload, null, 2); }
+            function saveFilters(hasStorage) {
+                if (!hasStorage) return;
+                const state = {
+                    players: document.getElementById('players').value,
+                    sets: Object.fromEntries([...document.querySelectorAll('.set')].map(cb => [cb.dataset.key, cb.checked])),
+                    noRepeat: document.getElementById('noRepeat').checked,
+                    respectWeights: document.getElementById('respectWeights').checked
+                };
+                localStorage.setItem('sm_randomiser_prefs', JSON.stringify(state));
+            }
 
-  let lastSetup = null;
-  function roll(){
-    const hasStorage = testStorage(); saveFilters(hasStorage);
-    const seed = currentSeed(hasStorage); const rng = mulberry32(seed);
-    const sets = getEnabledSets(); const cfg = readConfig();
-    if(sets.fighters.length===0 || sets.enemies.length===0 || sets.stages.length===0){ document.getElementById('output').textContent = "Turn on at least one box with Fighters, Enemies, and Stages."; return; }
+            function loadFilters(hasStorage) {
+                if (!hasStorage) return;
+                try {
+                    const raw = localStorage.getItem('sm_randomiser_prefs');
+                    if (!raw) return;
+                    const s = JSON.parse(raw);
+                    if (s.players) document.getElementById('players').value = s.players;
+                    if (s.sets) Object.entries(s.sets).forEach(([k, v]) => {
+                        const el = document.querySelector(`.set[data-key="${k}"]`);
+                        if (el) el.checked = !!v;
+                    });
+                    if ('noRepeat' in s) document.getElementById('noRepeat').checked = !!s.noRepeat;
+                    if ('respectWeights' in s) document.getElementById('respectWeights').checked = !!s.respectWeights;
+                } catch {}
+            }
 
-    let fighters = (cfg.locks.fighters && lastSetup?.fighters) ? lastSetup.fighters : drawDistinct(sets.fighters, cfg.players, rng, { weighted: cfg.weighted, weightFn: weightFnFighter });
-    const names=new Set(); fighters=fighters.filter(f=>{if(names.has(f.name))return false; names.add(f.name); return true;});
-    while(fighters.length<cfg.players){ const remaining = sets.fighters.filter(f=>!names.has(f.name)); if(!remaining.length) break; const pick = seededPick(remaining, rng); names.add(pick.name); fighters.push(pick); }
+            function currentSeed(hasStorage) {
+                try {
+                    let s = hasStorage ? sessionStorage.getItem('sm_seed') : null;
+                    if (!s) {
+                        s = Math.floor(Math.random() * 2 ** 31).toString();
+                        if (hasStorage) sessionStorage.setItem('sm_seed', s);
+                    }
+                    return parseInt(s, 10);
+                } catch (_) {
+                    return Math.floor(Math.random() * 2 ** 31);
+                }
+            }
 
-    const enemy = (cfg.locks.enemy && lastSetup?.enemy) ? lastSetup.enemy : drawDistinct(sets.enemies, 1, rng, {weighted: cfg.weighted, weightFn: weightFnEnemy})[0];
-    const stage = (cfg.locks.stage && lastSetup?.stage) ? lastSetup.stage : drawDistinct(sets.stages, 1, rng, {weighted: cfg.weighted, weightFn: weightFnStage})[0];
+            function setNewSeed(hasStorage) {
+                try {
+                    const s = Math.floor(Math.random() * 2 ** 31).toString();
+                    if (hasStorage) sessionStorage.setItem('sm_seed', s);
+                } catch (_) {}
+            }
 
-    let extras = (cfg.locks.extras && lastSetup?.extras) ? lastSetup.extras : [];
-    if (sets.extras.length){ extras = drawDistinct(sets.extras, 1 + Math.floor(rng()*1), rng); }
+            function weightFnFighter(f) {
+                return DATA.beginner.fighterNames.has(f.name) ? 3 : 1;
+            }
 
-    const thisSetup = {fighters, enemy, stage, extras};
-    if(cfg.noRepeat && lastSetup){ const a = JSON.stringify(thisSetup), b = JSON.stringify(lastSetup); if(a===b){ setNewSeed(hasStorage); return roll(); } }
-    lastSetup = thisSetup;
+            function weightFnStage(stg) {
+                return DATA.beginner.stageNames.has(stg.name) ? 3 : 1;
+            }
 
-    const enemyLine = enemy.boss ? `${enemy.faction} (Boss: ${enemy.boss})` : enemy.faction;
-    const fighterLines = fighters.map((f,i)=>` P${i+1}: ${f.name}${f.source?'  · '+f.source:''}`).join("\n");
-    const extrasLines = (extras && extras.length) ? ("\nExtras:\n " + extras.map(e=>`• ${e.name}`).join("\n ")) : "";
-    const out = [ `Fighters (${fighters.length}):\n${fighterLines}`, `\nEnemy:\n ${enemyLine}${enemy.source?'  · '+enemy.source:''}`, `\nStage:\n ${stage.name}${stage.source?'  · '+stage.source:''}`, extrasLines ].join("");
-    document.getElementById('output').textContent = out;
+            function weightFnEnemy(e) {
+                return DATA.beginner.enemyFactions.has(e.faction) ? 2 : 1;
+            }
 
-    const begF = fighters.every(f => DATA.beginner.fighterNames.has(f.name));
-    const begE = DATA.beginner.enemyFactions.has(enemy.faction);
-    const begS = DATA.beginner.stageNames.has(stage.name);
-    const note = (begF && begE && begS) ? "Beginner-friendly roll (matches the rulebook’s suggested starting vibe)." : "Tip: turn ON “Bias toward beginner decks” to nudge easier combinations.";
-    document.getElementById('footnote').textContent = note;
-    document.getElementById('seedLabel').textContent = String(seed);
-  }
+            function renderDataset() {
+                const payload = {
+                    fighters: Object.fromEntries(Object.entries(DATA.fighters).map(([k, v]) => [k, (v || []).map(x => x.name)])),
+                    enemies: Object.fromEntries(Object.entries(DATA.enemies).map(([k, v]) => [k, (v || []).map(x => x.faction)])),
+                    stages: Object.fromEntries(Object.entries(DATA.stages).map(([k, v]) => [k, (v || []).map(x => x.name)]))
+                };
+                document.getElementById('dataset').textContent = JSON.stringify(payload, null, 2);
+            }
 
-  function copyOutput(){
-    const txt = document.getElementById('output').textContent;
-    if (navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(txt).then(()=> flashCopyBtn(true)).catch(()=>flashCopyBtn(false)); }
-    else { try{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); flashCopyBtn(true);}catch{ flashCopyBtn(false);} }
-  }
-  function flashCopyBtn(ok){ const btn=document.getElementById('copy'); btn.textContent = ok? "✅ Copied" : "⚠️ Copy failed"; setTimeout(()=>btn.textContent="📋 Copy", 1600); }
-  function resetFilters(hasStorage){ if(hasStorage) localStorage.removeItem('sm_randomiser_prefs'); document.querySelectorAll('.set').forEach(cb=>cb.checked=true); document.getElementById('players').value=2; document.getElementById('noRepeat').checked=true; document.getElementById('respectWeights').checked=true; lastSetup=null; renderDataset(); }
-})();
-</script>
+            let lastSetup = null;
+
+            function roll() {
+                const hasStorage = testStorage();
+                saveFilters(hasStorage);
+                const seed = currentSeed(hasStorage);
+                const rng = mulberry32(seed);
+                const sets = getEnabledSets();
+                const cfg = readConfig();
+                if (sets.fighters.length === 0 || sets.enemies.length === 0 || sets.stages.length === 0) {
+                    document.getElementById('output').textContent = "Turn on at least one box with Fighters, Enemies, and Stages.";
+                    return;
+                }
+
+                let fighters = (cfg.locks.fighters && lastSetup?.fighters) ? lastSetup.fighters : drawDistinct(sets.fighters, cfg.players, rng, {
+                    weighted: cfg.weighted,
+                    weightFn: weightFnFighter
+                });
+                const names = new Set();
+                fighters = fighters.filter(f => {
+                    if (names.has(f.name)) return false;
+                    names.add(f.name);
+                    return true;
+                });
+                while (fighters.length < cfg.players) {
+                    const remaining = sets.fighters.filter(f => !names.has(f.name));
+                    if (!remaining.length) break;
+                    const pick = seededPick(remaining, rng);
+                    names.add(pick.name);
+                    fighters.push(pick);
+                }
+
+                const enemy = (cfg.locks.enemy && lastSetup?.enemy) ? lastSetup.enemy : drawDistinct(sets.enemies, 1, rng, {
+                    weighted: cfg.weighted,
+                    weightFn: weightFnEnemy
+                })[0];
+                const stage = (cfg.locks.stage && lastSetup?.stage) ? lastSetup.stage : drawDistinct(sets.stages, 1, rng, {
+                    weighted: cfg.weighted,
+                    weightFn: weightFnStage
+                })[0];
+
+                let extras = (cfg.locks.extras && lastSetup?.extras) ? lastSetup.extras : [];
+                if (sets.extras.length) {
+                    extras = drawDistinct(sets.extras, 1 + Math.floor(rng() * 1), rng);
+                }
+
+                const thisSetup = {
+                    fighters,
+                    enemy,
+                    stage,
+                    extras
+                };
+                if (cfg.noRepeat && lastSetup) {
+                    const a = JSON.stringify(thisSetup),
+                        b = JSON.stringify(lastSetup);
+                    if (a === b) {
+                        setNewSeed(hasStorage);
+                        return roll();
+                    }
+                }
+                lastSetup = thisSetup;
+
+                const enemyLine = enemy.boss ? `${enemy.faction} (Boss: ${enemy.boss})` : enemy.faction;
+                const fighterLines = fighters.map((f, i) => ` P${i+1}: ${f.name}${f.source?'  · '+f.source:''}`).join("\n");
+                const extrasLines = (extras && extras.length) ? ("\nExtras:\n " + extras.map(e => `• ${e.name}`).join("\n ")) : "";
+                const out = [`Fighters (${fighters.length}):\n${fighterLines}`, `\nEnemy:\n ${enemyLine}${enemy.source?'  · '+enemy.source:''}`, `\nStage:\n ${stage.name}${stage.source?'  · '+stage.source:''}`, extrasLines].join("");
+                document.getElementById('output').textContent = out;
+
+                const begF = fighters.every(f => DATA.beginner.fighterNames.has(f.name));
+                const begE = DATA.beginner.enemyFactions.has(enemy.faction);
+                const begS = DATA.beginner.stageNames.has(stage.name);
+                const note = (begF && begE && begS) ? "Beginner-friendly roll (matches the rulebook’s suggested starting vibe)." : "Tip: turn ON “Bias toward beginner decks” to nudge easier combinations.";
+                document.getElementById('footnote').textContent = note;
+                document.getElementById('seedLabel').textContent = String(seed);
+            }
+
+            function copyOutput() {
+                const txt = document.getElementById('output').textContent;
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(txt).then(() => flashCopyBtn(true)).catch(() => flashCopyBtn(false));
+                } else {
+                    try {
+                        const ta = document.createElement('textarea');
+                        ta.value = txt;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(ta);
+                        flashCopyBtn(true);
+                    } catch {
+                        flashCopyBtn(false);
+                    }
+                }
+            }
+
+            function flashCopyBtn(ok) {
+                const btn = document.getElementById('copy');
+                btn.textContent = ok ? "✅ Copied" : "⚠️ Copy failed";
+                setTimeout(() => btn.textContent = "📋 Copy", 1600);
+            }
+
+            function resetFilters(hasStorage) {
+                if (hasStorage) localStorage.removeItem('sm_randomiser_prefs');
+                document.querySelectorAll('.set').forEach(cb => cb.checked = true);
+                document.getElementById('players').value = 2;
+                document.getElementById('noRepeat').checked = true;
+                document.getElementById('respectWeights').checked = true;
+                lastSetup = null;
+                renderDataset();
+            }
+        })();
+    </script>
 </body>
+
 </html>
