@@ -975,20 +975,20 @@
                         source: "Aftershock"
                     }],
                     terrain: [{
-                        name: "TNT Crate",
+                        name: "Terrain TNT Crate ON",
                         source: "Tide of the Dragon"
                     },{
-                        name: "Ladder",
+                        name: "Terrain Ladder ON",
                         source: "Tide of the Dragon"
                     },{
-                        name: "Fire Hydrant",
+                        name: "Terrain Fire Hydrant ON",
                         source: "Tide of the Dragon"
                     },{
-                        name: "Oil Drum",
+                        name: "Terrain Oil Drum ON",
                         source: "Tide of the Dragon"
                     }],
                     turbo: [{
-                        name: "Turbo Mode",
+                        name: "Turbo Mode ON",
                         source: "KS2 Stretch"
                     }]
                 },
@@ -1041,7 +1041,13 @@
                     extras: []
                 };
                 if (boxes.includes('aftershock')) {
-                    sets.extras = [...DATA.extras.missions, ...DATA.extras.showdowns, ...DATA.extras.terrain, ...DATA.extras.turbo];
+                    sets.extras = set.extras.contcat([...DATA.extras.missions, ...DATA.extras.showdowns]);
+                }
+                if (boxes.includes('ks2')) {
+                    sets.extras = = set.extras.contcat([...DATA.extras.turbo]);
+                }
+                if (boxes.includes('tide')) {
+                    sets.extras = = set.extras.contcat([...DATA.extras.terrain]);
                 }
                 return sets;
             }
@@ -1194,7 +1200,7 @@
 
                 let extras = (cfg.locks.extras && lastSetup?.extras) ? lastSetup.extras : [];
                 if (sets.extras.length) {
-                    extras = drawDistinct(sets.extras, 1 + Math.floor(rng() * 1), rng);
+                    extras = drawDistinct(sets.extras, 1 + Math.floor(rng() * sets.extras.length), rng);
                 }
 
                 const thisSetup = {
