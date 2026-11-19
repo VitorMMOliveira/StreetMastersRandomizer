@@ -1200,7 +1200,7 @@
 
                 let extras = (cfg.locks.extras && lastSetup?.extras) ? lastSetup.extras : [];
                 if (sets.extras.length) {
-                    extras = drawDistinct(sets.extras, 1 + Math.floor(rng() * sets.extras.length), rng);
+                    extras = drawDistinct(sets.extras, Math.floor(rng() * (sets.extras.length + 1)), rng);
                 }
 
                 const thisSetup = {
