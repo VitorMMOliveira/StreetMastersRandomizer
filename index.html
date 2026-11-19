@@ -1041,13 +1041,13 @@
                     extras: []
                 };
                 if (boxes.includes('aftershock')) {
-                    sets.extras = sets.extras.contcat([...DATA.extras.missions, ...DATA.extras.showdowns]);
+                    sets.extras = sets.extras.concat([...DATA.extras.missions, ...DATA.extras.showdowns]);
                 }
                 if (boxes.includes('ks2')) {
-                    sets.extras = sets.extras.contcat([...DATA.extras.turbo]);
+                    sets.extras = sets.extras.concat([...DATA.extras.turbo]);
                 }
                 if (boxes.includes('tide')) {
-                    sets.extras = sets.extras.contcat([...DATA.extras.terrain]);
+                    sets.extras = sets.extras.concat([...DATA.extras.terrain]);
                 }
                 return sets;
             }
