@@ -1041,7 +1041,7 @@
                     extras: []
                 };
                 if (boxes.includes('aftershock')) {
-                    sets.extras = [...DATA.extras.missions, ...DATA.extras.showdowns];
+                    sets.extras = [...DATA.extras.missions, ...DATA.extras.showdowns, ...DATA.extras.terrain, ...DATA.extras.turbo];
                 }
                 return sets;
             }
